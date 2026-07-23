@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="15px" viewBox="0 -960 960 960" width="24px" fill="#8E98A6">
+    <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
+</svg>
