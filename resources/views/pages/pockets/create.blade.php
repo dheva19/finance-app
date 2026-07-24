@@ -40,6 +40,7 @@
                     required
                     placeholder="0"
                     class="w-full"
+                    min=0
                     value="{{ old('amount') }}"
                 />
             </div>
