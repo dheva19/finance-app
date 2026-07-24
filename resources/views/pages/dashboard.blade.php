@@ -7,7 +7,9 @@
     ]
 @endphp
 
-<x-layout.workspace :breadcrumps="$breadcrumps">
-    <p>Ini Dashboard</p>
+<x-layout.workspace :breadcrumps="$breadcrumps" title="Dashboard">
+    <x-ui.card class="w-full h-fit">
+        <p>Ini Dashboard</p>
+    </x-ui.card>
 </x-layout.workspace>
 

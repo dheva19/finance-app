@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('transaction_number')->unique();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('pocket_id')->constrained()->onDelete('cascade');
+            $table->foreignId('from_pocket_id')->nullable()->constrained('pockets', 'id')->onDelete('set null');
+            $table->foreignId('to_pocket_id')->nullable()->constrained('pockets', 'id')->onDelete('set null');
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
             $table->integer('amount');
-            $table->enum('type', ['income', 'expense']);
+            $table->enum('type', ['income', 'expense', 'transfer']);
             $table->text('note')->nullable();
             $table->timestamps();
         });

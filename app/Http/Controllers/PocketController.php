@@ -85,6 +85,6 @@ class PocketController extends Controller
             return abort(404);
         }
         $pocket->delete();
-        return redirect()->route('pockets.index')->with('success', 'Kantong berhasil dihapus!');
+        return back()->with('success', 'Kantong berhasil dihapus!');
     }
 }

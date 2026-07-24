@@ -7,10 +7,10 @@
         @endif"><x-icon.dashboard fill="{{ request()->routeIs('dashboard.index') ? '#ffff' : '#8E98A6' }}" />Dashboard</a>
     </li>
     <li>
-        <a class="flex gap-2 items-center w-full p-3 hover:bg-slate-200 rounded-md cursor-pointer
-        @if (request()->routeIs('login'))
+        <a href="{{ route('transactions.index') }}" class="flex gap-2 items-center w-full p-3 hover:bg-slate-200 rounded-md cursor-pointer
+        @if (request()->routeIs('transactions.index'))
             sidebar-menu-active
-        @endif"><x-icon.transaction fill="{{ request()->routeIs('login') ? '#ffff' : '#8E98A6' }}" />Transaksi</a>
+        @endif"><x-icon.transaction fill="{{ request()->routeIs('transactions.index') ? '#ffff' : '#8E98A6' }}" />Transaksi</a>
     </li>
     <li>
         <a href="{{ route('pockets.index') }}" class="flex gap-2 items-center w-full p-3 hover:bg-slate-200 rounded-md cursor-pointer
