@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Transaction\TransactionStoreRequest;
 use App\Http\Requests\Transaction\TransactionUpdateRequest;
+use App\Models\Category;
 use App\Models\Pocket;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -17,6 +18,8 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {
+        $itemPerPage = $request->paginate ?? 10;
+
         $transactions = Transaction::query()->where('user_id', $request->user()->id)
         ->when(
             $request->input('search'), function ($query, $search) {
@@ -34,12 +37,17 @@ class TransactionController extends Controller
             }
         )
         ->when(
-            $request->input('pocket'), function($query, $pocket){
-                $query->where('from_pocket_id', $pocket)->orWhere('to_pocket_id', $pocket);
+            $request->input('from_pocket'), function($query, $pocket){
+                $query->where('from_pocket_id', $pocket);
+            }
+        )
+        ->when(
+            $request->input('to_pocket'), function($query, $pocket){
+                $query->where('to_pocket_id', $pocket);
             }
         )
         ->orderBy('created_at', 'desc')
-        ->paginate(10)->withQueryString();
+        ->paginate($itemPerPage)->withQueryString();
 
         $pockets = Pocket::where('user_id', $request->user()->id)->get();
         return view('pages.transactions.index', compact('transactions', 'pockets'));
@@ -51,7 +59,8 @@ class TransactionController extends Controller
     public function create(Request $request)
     {
         $pockets = Pocket::where('user_id', $request->user()->id)->get();
-        return view('pages.transactions.create', compact('pockets'));
+        $categories = Category::where('user_id', $request->user()->id)->get();
+        return view('pages.transactions.create', compact('pockets', 'categories'));
     }
 
     function generateTransactionNumber(string $prefix, string $userId){

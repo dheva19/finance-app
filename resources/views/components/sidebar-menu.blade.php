@@ -18,6 +18,12 @@
             sidebar-menu-active
         @endif"><x-icon.kantong fill="{{ request()->routeIs('pockets.index') ? '#ffff' : '#8E98A6' }}" />Kantong</a>
     </li>
+    <li>
+        <a href="{{ route('categories.index') }}" class="flex gap-2 items-center w-full p-3 hover:bg-slate-200 rounded-md cursor-pointer
+        @if (request()->routeIs('categories.index'))
+            sidebar-menu-active
+        @endif"><x-icon.kategori fill="{{ request()->routeIs('categories.index') ? '#ffff' : '#8E98A6' }}" />Kategori</a>
+    </li>
 </ul>
 
 <style>

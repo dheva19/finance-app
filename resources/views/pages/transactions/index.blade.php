@@ -9,37 +9,50 @@
 
 <x-layout.workspace :breadcrumps="$breadcrumps" title="Transaksi">
     <x-ui.card class="w-full h-fit">
-        <h3 class="font-semibold text-xl">List Transaksi</h3>
-        <div class="flex flex-wrap flex-col md:flex-row justify-between items-center gap-3 my-7">
-            <form class="flex flex-wrap gap-2 items-center">
-                <x-ui.input
-                    name="search"
-                    type="search"
-                    placeholder="Cari Nomor Transaksi..."
-                    value="{{ request()->search }}"
-                />
-                <x-ui.select name="type">
-                    <x-ui.option value="" selectedValue="{{ request()->type }}">Semua Tipe</x-ui.option>
-                    <x-ui.option value="income" selectedValue="{{ request()->type }}">Income</x-ui.option>
-                    <x-ui.option value="expense" selectedValue="{{ request()->type }}">Expense</x-ui.option>
-                    <x-ui.option value="transfer" selectedValue="{{ request()->type }}">Transfer</x-ui.option>
-                </x-ui.select>
-                <x-ui.input
-                    name="date"
-                    type="date"
-                    value="{{ request()->date }}"
-                />
-                <x-ui.select name="pocket">
-                    <x-ui.option value="">Semua Kantong</x-ui.option>
-                    @foreach ($pockets as $item)
-                        <x-ui.option value="{{ $item->id }}" selectedValue="{{ request()->pocket }}">{{ $item->name }}</x-ui.option>
-                    @endforeach
-                </x-ui.select>
-                <x-ui.button type="submit">Terapkan</x-ui.button>
-                <x-ui.button type="button" variant="secondary" onclick="window.location.href='{{ route('transactions.index') }}'">Reset</x-ui.button>
-            </form>
+        <div class="flex flex-col md:flex-row justify-between gap-5">
+            <h3 class="font-semibold text-xl">List Transaksi</h3>
             <x-ui.button onclick="window.location.href='{{ route('transactions.create') }}'" >+ Tambah</x-ui.button>
         </div>
+        <form class="flex flex-wrap gap-2 my-7 items-center">
+            <x-ui.input
+                name="search"
+                type="search"
+                placeholder="Cari Nomor Transaksi..."
+                value="{{ request()->search }}"
+            />
+            <x-ui.select name="type">
+                <x-ui.option value="" selectedValue="{{ request()->type }}">Semua Tipe</x-ui.option>
+                <x-ui.option value="income" selectedValue="{{ request()->type }}">Income</x-ui.option>
+                <x-ui.option value="expense" selectedValue="{{ request()->type }}">Expense</x-ui.option>
+                <x-ui.option value="transfer" selectedValue="{{ request()->type }}">Transfer</x-ui.option>
+            </x-ui.select>
+            <x-ui.input
+                name="date"
+                type="date"
+                value="{{ request()->date }}"
+            />
+            <x-ui.select name="from_pocket">
+                <x-ui.option value="">Dari Kantong</x-ui.option>
+                @foreach ($pockets as $item)
+                    <x-ui.option value="{{ $item->id }}" selectedValue="{{ request()->from_pocket }}">{{ $item->name }}</x-ui.option>
+                @endforeach
+            </x-ui.select>
+            <x-ui.select name="to_pocket">
+                <x-ui.option value="">Untuk Kantong</x-ui.option>
+                @foreach ($pockets as $item)
+                    <x-ui.option value="{{ $item->id }}" selectedValue="{{ request()->to_pocket }}">{{ $item->name }}</x-ui.option>
+                @endforeach
+            </x-ui.select>
+            <x-ui.button type="submit">Terapkan</x-ui.button>
+            <x-ui.button type="button" variant="secondary" onclick="window.location.href='{{ route('transactions.index') }}'">Reset</x-ui.button>
+            <p>Paginate:</p>
+            <x-ui.select name="paginate">
+                <x-ui.option value="10" selectedValue="{{ request()->paginate }}">10</x-ui.option>
+                <x-ui.option value="15" selectedValue="{{ request()->paginate }}">15</x-ui.option>
+                <x-ui.option value="50" selectedValue="{{ request()->paginate }}">50</x-ui.option>
+                <x-ui.option value="100" selectedValue="{{ request()->paginate }}">100</x-ui.option>
+            </x-ui.select>
+        </form>
 
         <section class="max-w-screen overflow-auto">
             <table class="table-auto w-full border-collapse">

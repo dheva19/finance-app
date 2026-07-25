@@ -9,21 +9,21 @@
 
 <x-layout.workspace :breadcrumps="$breadcrumps" title="Kantong">
     <x-ui.card class="w-full h-fit">
-        <h3 class="font-semibold text-xl">List Kantong Uang</h3>
-
-        <div class="flex flex-col md:flex-row justify-between gap-3 my-7">
-            <form>
-                <x-ui.input
-                    name="search"
-                    type="search"
-                    placeholder="Cari Kantong..."
-                    value="{{ request()->search }}"
-                />
-                <x-ui.button type="submit">Terapkan</x-ui.button>
-                <x-ui.button type="button" variant="secondary" onclick="window.location.href='{{ route('pockets.index') }}'">Reset</x-ui.button>
-            </form>
+        <div class="flex flex-col md:flex-row justify-between gap-5">
+            <h3 class="font-semibold text-xl">List Kantong Uang</h3>
             <x-ui.button onclick="window.location.href='{{ route('pockets.create') }}'" >+ Kantong Baru</x-ui.button>
         </div>
+
+        <form class="flex flex-wrap items-center gap-2 my-7">
+            <x-ui.input
+                name="search"
+                type="search"
+                placeholder="Cari Kantong..."
+                value="{{ request()->search }}"
+            />
+            <x-ui.button type="submit">Terapkan</x-ui.button>
+            <x-ui.button type="button" variant="secondary" onclick="window.location.href='{{ route('pockets.index') }}'">Reset</x-ui.button>
+        </form>
 
         <section class="grid grid-cols-12 gap-3 py-5">
             @foreach ($pockets as $item)
