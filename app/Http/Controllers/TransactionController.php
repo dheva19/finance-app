@@ -23,7 +23,7 @@ class TransactionController extends Controller
         $transactions = Transaction::query()->where('user_id', $request->user()->id)
         ->when(
             $request->input('search'), function ($query, $search) {
-                $query->where('transaction_number', 'like', '%'.$search.'%');
+                $query->where('note', 'like', '%'.$search.'%');
             }
         )
         ->when(
@@ -46,11 +46,17 @@ class TransactionController extends Controller
                 $query->where('to_pocket_id', $pocket);
             }
         )
+        ->when(
+            $request->input('category_id'), function($query, $category){
+                $query->where('category_id', $category);
+            }
+        )
         ->orderBy('created_at', 'desc')
         ->paginate($itemPerPage)->withQueryString();
 
         $pockets = Pocket::where('user_id', $request->user()->id)->get();
-        return view('pages.transactions.index', compact('transactions', 'pockets'));
+        $categories = Category::where('user_id', $request->user()->id)->get();
+        return view('pages.transactions.index', compact('transactions', 'pockets', 'categories'));
     }
 
     /**

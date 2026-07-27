@@ -17,7 +17,7 @@
             <x-ui.input
                 name="search"
                 type="search"
-                placeholder="Cari Nomor Transaksi..."
+                placeholder="Cari Transaksi..."
                 value="{{ request()->search }}"
             />
             <x-ui.select name="type">
@@ -43,8 +43,12 @@
                     <x-ui.option value="{{ $item->id }}" selectedValue="{{ request()->to_pocket }}">{{ $item->name }}</x-ui.option>
                 @endforeach
             </x-ui.select>
-            <x-ui.button type="submit">Terapkan</x-ui.button>
-            <x-ui.button type="button" variant="secondary" onclick="window.location.href='{{ route('transactions.index') }}'">Reset</x-ui.button>
+            <x-ui.select name="category_id">
+                <x-ui.option value="">Semua Kategori</x-ui.option>
+                @foreach ($categories as $item)
+                    <x-ui.option value="{{ $item->id }}" selectedValue="{{ request()->category_id }}">{{ $item->name }} ({{ $item->type }})</x-ui.option>
+                @endforeach
+            </x-ui.select>
             <p>Paginate:</p>
             <x-ui.select name="paginate">
                 <x-ui.option value="10" selectedValue="{{ request()->paginate }}">10</x-ui.option>
@@ -52,6 +56,8 @@
                 <x-ui.option value="50" selectedValue="{{ request()->paginate }}">50</x-ui.option>
                 <x-ui.option value="100" selectedValue="{{ request()->paginate }}">100</x-ui.option>
             </x-ui.select>
+            <x-ui.button type="submit">Terapkan</x-ui.button>
+            <x-ui.button type="button" variant="secondary" onclick="window.location.href='{{ route('transactions.index') }}'">Reset</x-ui.button>
         </form>
 
         <section class="max-w-screen overflow-auto">
@@ -77,7 +83,7 @@
                             <td class="px-3 py-2 border border-slate-200 font-semibold">Rp{{ number_format($item->amount, 0, ',', '.') }}</td>
                             <td class="px-3 py-2 border border-slate-200 text-red-500">{{ $item->fromPocket->name ?? '-' }}</td>
                             <td class="px-3 py-2 border border-slate-200 text-green-500">{{ $item->toPocket->name ?? '-' }}</td>
-                            <td class="px-3 py-2 border border-slate-200"><button class="text-blue-500 cursor-pointer hover:underline" onclick="openNoteModal('{{ $item->note ?? '-' }}', '{{ $item->id }}')">Lihat Catatan</button></td>
+                            <td class="px-3 py-2 border border-slate-200"><button class="text-blue-500 cursor-pointer hover:underline" onclick="openNoteModal('{{ $item->note ?? '-' }}', '{{ $item->id }}', '{{ $item->category->name ?? '-' }}')">Lihat Catatan</button></td>
                             <td class="px-3 py-2 border border-slate-200 text-center">
                                 <x-ui.button onclick="handleDelete('{{ $item->id }}', '{{ $item->transaction_number }}')" class="text-xs px-2 py-1" variant="destructive">Hapus</x-ui.button>
                             </td>

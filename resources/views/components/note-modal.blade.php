@@ -15,6 +15,16 @@
                 </x-ui.textarea>
             </div>
 
+            <div class="mb-3">
+                <x-ui.label for="category">Kategori</x-ui.label>
+                <x-ui.input
+                    type="text"
+                    id="category"
+                    disabled
+                    class="w-full"
+                />
+            </div>
+
             <div class="flex items-center justify-end gap-2">
                 <x-ui.button type="button" variant="outline" onclick="closeNoteModal()">Tutup</x-ui.button>
                 <x-ui.button type="submit" variant="primary">Simpan</x-ui.button>
@@ -28,9 +38,10 @@
         document.querySelector("#note-modal").classList.add('hidden');
     }
 
-    function openNoteModal(note, noteId){
+    function openNoteModal(note, noteId, category){
         document.querySelector("#note-modal").classList.remove('hidden');
         document.querySelector("#note-update-form").setAttribute('action', `/transactions/${noteId}`);
         document.querySelector("#note").value = note;
+        document.querySelector('#category').value = category;
     }
 </script>

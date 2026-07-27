@@ -45,7 +45,10 @@
                 <div class="mb-3 col-span-12 md:col-span-4">
                     <x-ui.label for="category" required>Kategori</x-ui.label>
                     <x-ui.select id="category" name="category_id" class="w-full">
-                        <x-ui.option disabled selected>--Pilih Kategori--</x-ui.option>
+                        <x-ui.option value="" disabled selected>--Pilih Kategori--</x-ui.option>
+                        @foreach ($categories as $item)
+                            <x-ui.option value="{{ $item->id }}" class="option-{{ $item->type }} hidden">{{ $item->name }}</x-ui.option>
+                        @endforeach
                     </x-ui.select>
                 </div>
 
@@ -97,15 +100,64 @@
         const fromPocketInput = document.querySelector('#from-pocket-input');
         const toPocketInput = document.querySelector('#to-pocket-input');
 
+        const categorySelect = document.querySelector('#category');
+
+        const incomeOptions = document.querySelectorAll('.option-income');
+        const expenseOptions = document.querySelectorAll('.option-expense');
+        const transferOptions = document.querySelectorAll('.option-transfer');
+
         if(value == 'income'){
             fromPocketInput.classList.add('hidden');
             toPocketInput.classList.remove('hidden');
+
+            categorySelect.value = "";
+
+            incomeOptions.forEach(e => {
+                e.classList.remove('hidden');
+            });
+
+            expenseOptions.forEach(e => {
+                e.classList.add('hidden');
+            });
+
+            expenseOptions.forEach(e => {
+                e.classList.add('hidden');
+            });
+
         }else if(value == 'expense'){
             fromPocketInput.classList.remove('hidden');
             toPocketInput.classList.add('hidden');
+
+            categorySelect.value = "";
+
+            incomeOptions.forEach(e => {
+                e.classList.add('hidden');
+            });
+
+            expenseOptions.forEach(e => {
+                e.classList.remove('hidden');
+            });
+
+            expenseOptions.forEach(e => {
+                e.classList.add('hidden');
+            });
         }else if(value == 'transfer'){
             fromPocketInput.classList.remove('hidden');
             toPocketInput.classList.remove('hidden');
+
+            categorySelect.value = "";
+
+            incomeOptions.forEach(e => {
+                e.classList.add('hidden');
+            });
+
+            expenseOptions.forEach(e => {
+                e.classList.add('hidden');
+            });
+
+            expenseOptions.forEach(e => {
+                e.classList.remove('hidden');
+            });
         }
     });
 </script>

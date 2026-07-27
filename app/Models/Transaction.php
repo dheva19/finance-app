@@ -16,6 +16,10 @@ class Transaction extends Model
         return $this->belongsTo(Pocket::class, 'to_pocket_id');
     }
 
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
     public function getTypeStyle(){
         $type = $this->type;
         $classStyle = "";

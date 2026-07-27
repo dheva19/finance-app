@@ -1,6 +1,9 @@
 import Swal from 'sweetalert2';
 
+import Chart from 'chart.js/auto';
+
 window.Swal = Swal;
+window.Chart = Chart;
 
 document.addEventListener("DOMContentLoaded", function(){
     const mobileQuery = window.matchMedia('(max-width: 768px)');
