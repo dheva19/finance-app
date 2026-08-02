@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+    app:
+        build: .
+        container_name: finance_app
+        restart: unless-stopped
+        env_file: .env
+        ports:
+            - "8001:8000"
+        depends_on:
+            - db
+
+    db:
+        image: mysql:8.0.46
+        container_name: mysql_db
+        restart: unless-stopped
+        command: --performance-schema=off
+        environment:
+            - MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            - MYSQL_DATABASE: ${DB_DATABASE}
+            - MYSQL_USER: ${DB_USERNAME}
+            - MYSQL_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - db_data:/var/lib/mysql
+
+volumes:
+    db_data:
