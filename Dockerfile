@@ -6,7 +6,7 @@ COPY . .
 RUN npm run build
 
 FROM php:8.4-alpine
-RUN apk add --no-cache curl zip unzip libicu-dev \
+RUN apk add --no-cache curl zip unzip icu-dev icu-libs \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl pdo_mysql
 WORKDIR /var/www/html
