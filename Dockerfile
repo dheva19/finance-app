@@ -5,7 +5,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM php:2.4-alpine
+FROM php:8.4-alpine
 RUN apk add --no-cache curl zip unzip && docker-php-ext-install pdo_mysql
 WORKDIR /var/www/html
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
