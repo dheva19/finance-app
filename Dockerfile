@@ -6,11 +6,9 @@ COPY . .
 RUN npm run build
 
 FROM php:8.4-alpine
-RUN apk add --no-cache curl zip unzip && docker-php-ext-install pdo_mysql
-RUN apt-get update && apt-get install -y \
-    libicu-dev \
+RUN apk add --no-cache curl zip unzip libicu-dev \
     && docker-php-ext-configure intl \
-    && docker-php-ext-install intl pdo_mysq
+    && docker-php-ext-install intl pdo_mysql
 WORKDIR /var/www/html
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . .
