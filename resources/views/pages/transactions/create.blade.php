@@ -120,7 +120,7 @@
                 e.classList.add('hidden');
             });
 
-            expenseOptions.forEach(e => {
+            transferOptions.forEach(e => {
                 e.classList.add('hidden');
             });
 
@@ -138,7 +138,7 @@
                 e.classList.remove('hidden');
             });
 
-            expenseOptions.forEach(e => {
+            transferOptions.forEach(e => {
                 e.classList.add('hidden');
             });
         }else if(value == 'transfer'){
@@ -155,7 +155,7 @@
                 e.classList.add('hidden');
             });
 
-            expenseOptions.forEach(e => {
+            transferOptions.forEach(e => {
                 e.classList.remove('hidden');
             });
         }

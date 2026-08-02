@@ -42,9 +42,7 @@ document.addEventListener("DOMContentLoaded", function(){
     document.querySelector('#sidebar-overlay').addEventListener('click', function(){
         toggleSidebar();
     });
-
-
-
-
 });
+
+
 
